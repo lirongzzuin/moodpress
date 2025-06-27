@@ -1,6 +1,6 @@
 const { generateStyledMessage } = require('../services/gptService')
 
-exports.analyzeEmotion = async (req, res) => {
+exports.analyzeMood = async (req, res) => {
     const { mood, style } = req.body
 
     if (!mood || !style) {
@@ -9,11 +9,11 @@ exports.analyzeEmotion = async (req, res) => {
 
     try {
         const message = await generateStyledMessage(mood, style)
-        if (!message) throw new Error('GPT 응답 실패')
+        if (!message) throw new Error('메시지 생성 실패')
 
         res.json({ message })
     } catch (err) {
-        console.error('[analyzeEmotion]', err)
-        res.status(500).json({ message: 'GPT 응답 중 오류 발생' })
+        console.error('[analyzeMood]', err)
+        res.status(500).json({ message: 'GPT 응답 생성 중 오류 발생' })
     }
 }
